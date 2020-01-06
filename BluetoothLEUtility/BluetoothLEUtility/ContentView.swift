@@ -12,30 +12,25 @@ struct ContentView: View {
     @ObservedObject private var peripheralVM = PeripheralVM()
     
     var body: some View {
-        VStack {
-            List(self.peripheralVM.peripheralItems) {
-                peripheralItem in
-                Button(action: {
-                    var result = true
-                    if result {
-                        result = self.peripheralVM.stopScan()
+        NavigationView {
+            VStack {
+                List(self.peripheralVM.peripheralItems) {
+                    peripheralItem in
+                    NavigationLink(destination: ServiceListView(peripheralVM: self.peripheralVM, peripheral: peripheralItem.peripheral)) {
+                        ListRowView(title: peripheralItem.name, detail: peripheralItem.uuid)
                     }
-                    if result {
-                        result = self.peripheralVM.connectPeripheral(peripheral: peripheralItem.peripheral)
+                }
+                if peripheralVM.state == .poweredOn {
+                    Button(action: {
+                        _ = self.peripheralVM.startScan()
+                    }) {
+                        Text("検索")
                     }
-                }) {
-                    ListRowView(title: peripheralItem.name, detail: peripheralItem.uuid)
+                } else {
+                    Text("準備中")
                 }
             }
-            if peripheralVM.state == .poweredOn {
-                Button(action: {
-                    _ = self.peripheralVM.startScan()
-                }) {
-                    Text("検索")
-                }
-            } else {
-                Text("準備中")
-            }
+            .navigationBarTitle("ペリフェラル一覧" ,displayMode: .inline)
         }
     }
 }

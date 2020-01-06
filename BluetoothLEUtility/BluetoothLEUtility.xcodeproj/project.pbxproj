@@ -16,6 +16,7 @@
 		9D827FFA23C2F51700285DA9 /* debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D827FF923C2F51700285DA9 /* debug.swift */; };
 		9D827FFC23C2F5CF00285DA9 /* PeripheralVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D827FFB23C2F5CF00285DA9 /* PeripheralVM.swift */; };
 		9D82800023C315A900285DA9 /* ListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D827FFF23C315A900285DA9 /* ListRowView.swift */; };
+		9D82800223C31D0300285DA9 /* ServiceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D82800123C31D0300285DA9 /* ServiceListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		9D827FF923C2F51700285DA9 /* debug.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = debug.swift; sourceTree = "<group>"; };
 		9D827FFB23C2F5CF00285DA9 /* PeripheralVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralVM.swift; sourceTree = "<group>"; };
 		9D827FFF23C315A900285DA9 /* ListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowView.swift; sourceTree = "<group>"; };
+		9D82800123C31D0300285DA9 /* ServiceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				9D827FE523C2F41C00285DA9 /* AppDelegate.swift */,
 				9D827FE723C2F41C00285DA9 /* SceneDelegate.swift */,
 				9D827FE923C2F41C00285DA9 /* ContentView.swift */,
+				9D82800123C31D0300285DA9 /* ServiceListView.swift */,
 				9D827FFF23C315A900285DA9 /* ListRowView.swift */,
 				9D827FFB23C2F5CF00285DA9 /* PeripheralVM.swift */,
 				9D827FEB23C2F42400285DA9 /* Assets.xcassets */,
@@ -160,6 +163,7 @@
 				9D827FFC23C2F5CF00285DA9 /* PeripheralVM.swift in Sources */,
 				9D82800023C315A900285DA9 /* ListRowView.swift in Sources */,
 				9D827FE823C2F41C00285DA9 /* SceneDelegate.swift in Sources */,
+				9D82800223C31D0300285DA9 /* ServiceListView.swift in Sources */,
 				9D827FEA23C2F41C00285DA9 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -76,12 +76,27 @@ class PeripheralVM: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Ob
         let result = state == .poweredOn ? true : false
         
         if result {
+            DispatchQueue.main.async {
+                self.peripheralServices = []
+            }
             centralManager.connect(peripheral, options: nil)
         }
         
         return result
     }
     
+    func disconnectPeripheral() -> Bool {
+        let result = state == .poweredOn ? true : false
+        
+        if result {
+            if let _connectedPeripheral = connectedPeripheral {
+                centralManager.cancelPeripheralConnection(_connectedPeripheral)
+            }
+        }
+        
+        return result
+    }
+
     /// Serviceの検索
     private func searchService() {
         guard let _connectedPeripheral = connectedPeripheral else {
@@ -125,7 +140,7 @@ class PeripheralVM: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Ob
         let kCBAdvDataLocalName = advertisementData["kCBAdvDataLocalName"] as? String
         
         let peripheralItem = PeripheralItem(uuid: peripheral.identifier.uuidString,
-                                            name: kCBAdvDataLocalName ?? "no name",
+                                            name: kCBAdvDataLocalName ?? peripheral.name ?? "no name",
                                             peripheral: peripheral,
                                             rssi: RSSI)
         DispatchQueue.main.async {
