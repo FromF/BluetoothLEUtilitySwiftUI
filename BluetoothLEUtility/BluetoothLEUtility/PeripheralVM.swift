@@ -24,14 +24,23 @@ struct PeripheralService : Identifiable {
     let service: CBService
 }
 
+struct Characteristic : Identifiable {
+    let id = UUID()
+    let characteristicUuids: String
+    let characteristic: CBCharacteristic
+}
+
 class PeripheralVM: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, ObservableObject {
     
     @Published var peripheralItems: [PeripheralItem] = []
     @Published var state: CBManagerState = .unknown
-    @Published var connectedPeripheral: CBPeripheral? = nil
     @Published var peripheralServices: [PeripheralService] = []
-
+    @Published var characteristics: [Characteristic] = []
+    var selectedCharacteristic: CBCharacteristic?
+    @Published var characteristicString: String = ""
+    
     private var centralManager: CBCentralManager!
+    private var connectedPeripheral: CBPeripheral? = nil
     
     override init() {
         super.init()
@@ -96,7 +105,7 @@ class PeripheralVM: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Ob
         
         return result
     }
-
+    
     /// Serviceの検索
     private func searchService() {
         guard let _connectedPeripheral = connectedPeripheral else {
@@ -106,6 +115,20 @@ class PeripheralVM: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Ob
         
         _connectedPeripheral.delegate = self
         _connectedPeripheral.discoverServices(nil)
+    }
+    
+    /// Charactaristicsの検索
+    func searchCharacteristics(service: CBService){
+        guard let _connectedPeripheral = connectedPeripheral else {
+            errorLog("Unwrap Error")
+            return
+        }
+        DispatchQueue.main.async {
+            self.characteristics = []
+            self.characteristicString = ""
+            _connectedPeripheral.delegate = self
+            _connectedPeripheral.discoverCharacteristics(nil, for: service)
+        }
     }
     
     // MARK: - CBCentralManagerDelegate
@@ -196,4 +219,18 @@ class PeripheralVM: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Ob
             }
         }
     }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        if let e = error {
+            errorLog("Error: \(e.localizedDescription)")
+        } else if let characteristics = service.characteristics {
+            for characteristic in characteristics {
+                let _characteristic = Characteristic(characteristicUuids: characteristic.uuid.uuidString, characteristic: characteristic)
+                DispatchQueue.main.async {
+                    self.characteristics.append(_characteristic)
+                }
+            }
+        }
+    }
+    
 }

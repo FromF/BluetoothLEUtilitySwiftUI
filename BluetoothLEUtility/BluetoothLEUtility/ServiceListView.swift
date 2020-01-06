@@ -17,13 +17,11 @@ struct ServiceListView: View {
         NavigationView {
             List(self.peripheralVM.peripheralServices) {
                 peripheralService in
-                Button(action: {
-                    //無処理
-                }) {
+                NavigationLink(destination: ServiceControlView(peripheralVM: self.peripheralVM, service: peripheralService.service)) {
                     ListRowView(title: peripheralService.serviceUuids, detail: "Service")
                 }
             }
-            .navigationBarTitle("サービス一覧" ,displayMode: .inline)
+            .navigationBarTitle("Service" ,displayMode: .inline)
             .onAppear() {
                 var result = true
                 if result {
@@ -32,9 +30,6 @@ struct ServiceListView: View {
                 if result {
                     result = self.peripheralVM.connectPeripheral(peripheral: self.peripheral)
                 }
-            }
-            .onDisappear() {
-                _ = self.peripheralVM.disconnectPeripheral()
             }
         }
     }

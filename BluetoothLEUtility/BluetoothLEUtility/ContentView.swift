@@ -24,13 +24,16 @@ struct ContentView: View {
                     Button(action: {
                         _ = self.peripheralVM.startScan()
                     }) {
-                        Text("検索")
+                        Text("Search")
                     }
                 } else {
-                    Text("準備中")
+                    Text("Initialize")
                 }
             }
-            .navigationBarTitle("ペリフェラル一覧" ,displayMode: .inline)
+            .navigationBarTitle("Peripheral" ,displayMode: .inline)
+        }
+        .onAppear() {
+            _ = self.peripheralVM.disconnectPeripheral()
         }
     }
 }

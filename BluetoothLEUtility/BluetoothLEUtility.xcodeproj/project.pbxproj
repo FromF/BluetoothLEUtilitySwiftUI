@@ -17,10 +17,11 @@
 		9D827FFC23C2F5CF00285DA9 /* PeripheralVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D827FFB23C2F5CF00285DA9 /* PeripheralVM.swift */; };
 		9D82800023C315A900285DA9 /* ListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D827FFF23C315A900285DA9 /* ListRowView.swift */; };
 		9D82800223C31D0300285DA9 /* ServiceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D82800123C31D0300285DA9 /* ServiceListView.swift */; };
+		9D82800423C3336200285DA9 /* ServiceControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D82800323C3336200285DA9 /* ServiceControlView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9D827FE223C2F41C00285DA9 /* BluetoothLEUtility.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BluetoothLEUtility.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D827FE223C2F41C00285DA9 /* BLE Util.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BLE Util.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D827FE523C2F41C00285DA9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9D827FE723C2F41C00285DA9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		9D827FE923C2F41C00285DA9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -32,6 +33,7 @@
 		9D827FFB23C2F5CF00285DA9 /* PeripheralVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralVM.swift; sourceTree = "<group>"; };
 		9D827FFF23C315A900285DA9 /* ListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowView.swift; sourceTree = "<group>"; };
 		9D82800123C31D0300285DA9 /* ServiceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceListView.swift; sourceTree = "<group>"; };
+		9D82800323C3336200285DA9 /* ServiceControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceControlView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +58,7 @@
 		9D827FE323C2F41C00285DA9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9D827FE223C2F41C00285DA9 /* BluetoothLEUtility.app */,
+				9D827FE223C2F41C00285DA9 /* BLE Util.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -69,6 +71,7 @@
 				9D827FE723C2F41C00285DA9 /* SceneDelegate.swift */,
 				9D827FE923C2F41C00285DA9 /* ContentView.swift */,
 				9D82800123C31D0300285DA9 /* ServiceListView.swift */,
+				9D82800323C3336200285DA9 /* ServiceControlView.swift */,
 				9D827FFF23C315A900285DA9 /* ListRowView.swift */,
 				9D827FFB23C2F5CF00285DA9 /* PeripheralVM.swift */,
 				9D827FEB23C2F42400285DA9 /* Assets.xcassets */,
@@ -104,7 +107,7 @@
 			);
 			name = BluetoothLEUtility;
 			productName = BluetoothLEUtility;
-			productReference = 9D827FE223C2F41C00285DA9 /* BluetoothLEUtility.app */;
+			productReference = 9D827FE223C2F41C00285DA9 /* BLE Util.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -158,6 +161,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D82800423C3336200285DA9 /* ServiceControlView.swift in Sources */,
 				9D827FE623C2F41C00285DA9 /* AppDelegate.swift in Sources */,
 				9D827FFA23C2F51700285DA9 /* debug.swift in Sources */,
 				9D827FFC23C2F5CF00285DA9 /* PeripheralVM.swift in Sources */,
@@ -311,7 +315,7 @@
 				);
 				OTHER_SWIFT_FLAGS = "-DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = FromF.github.com.BluetoothLEUtility;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "BLE Util";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -331,7 +335,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = FromF.github.com.BluetoothLEUtility;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "BLE Util";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
