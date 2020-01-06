@@ -29,7 +29,7 @@ struct ServiceControlView: View {
                 Spacer()
                 HStack {
                     Button(action: {
-                        
+                        self.peripheralVM.characteristicsWriteValue()
                     }) {
                         Text("Write")
                         .frame(width: 100, height: 40, alignment: .center)
@@ -37,7 +37,7 @@ struct ServiceControlView: View {
                         .foregroundColor(.white)
                     }
                     Button(action: {
-                        
+                        self.peripheralVM.characteristicsReadValue()
                     }) {
                         Text("Read")
                         .frame(width: 100, height: 40, alignment: .center)
@@ -45,15 +45,15 @@ struct ServiceControlView: View {
                         .foregroundColor(.white)
                     }
                 }
-                Spacer()
-                Button(action: {
-                    
-                }) {
-                    Text("Invoke App")
-                    .frame(width: 200, height: 40, alignment: .center)
-                    .background(Color.black)
-                        .foregroundColor(.white)
-                }
+//                Spacer()
+//                Button(action: {
+//                    
+//                }) {
+//                    Text("Invoke App")
+//                    .frame(width: 200, height: 40, alignment: .center)
+//                    .background(Color.black)
+//                        .foregroundColor(.white)
+//                }
                 Spacer()
             }
         }

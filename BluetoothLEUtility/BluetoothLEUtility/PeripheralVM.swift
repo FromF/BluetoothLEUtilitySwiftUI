@@ -131,6 +131,37 @@ class PeripheralVM: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Ob
         }
     }
     
+    func characteristicsReadValue() {
+        guard let _connectedPeripheral = connectedPeripheral else {
+            errorLog("Unwrap Error")
+            return
+        }
+        guard let _selectedCharacteristic = selectedCharacteristic else {
+            errorLog("Unwrap Error")
+            return
+        }
+        
+        _connectedPeripheral.readValue(for: _selectedCharacteristic)
+    }
+    
+    func characteristicsWriteValue() {
+        guard let _connectedPeripheral = connectedPeripheral else {
+            errorLog("Unwrap Error")
+            return
+        }
+        guard let _selectedCharacteristic = selectedCharacteristic else {
+            errorLog("Unwrap Error")
+            return
+        }
+
+        guard let data = characteristicString.data(using: .utf8, allowLossyConversion: true) else {
+            errorLog("Unwrap Error")
+            return
+        }
+        
+        _connectedPeripheral.writeValue(data, for: _selectedCharacteristic, type: .withResponse)
+    }
+
     // MARK: - CBCentralManagerDelegate
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         DispatchQueue.main.async {
@@ -233,4 +264,25 @@ class PeripheralVM: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Ob
         }
     }
     
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        if let e = error {
+            errorLog("Error: \(e.localizedDescription)")
+        } else if let value = characteristic.value {
+            DispatchQueue.main.async {
+                if let string = String(data: value, encoding: .utf8) {
+                    self.characteristicString = string
+                } else {
+                    self.characteristicString = "\(value)"
+                }
+            }
+        }
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor descriptor: CBDescriptor, error: Error?) {
+        if let e = error {
+            errorLog("Error: \(e.localizedDescription)")
+        } else {
+            debugLog("success")
+        }
+    }
 }
