@@ -14,23 +14,16 @@ struct ServiceListView: View {
     var peripheral: CBPeripheral
 
     var body: some View {
-        NavigationView {
-            List(self.peripheralVM.peripheralServices) {
-                peripheralService in
-                NavigationLink(destination: ServiceControlView(peripheralVM: self.peripheralVM, service: peripheralService.service)) {
-                    ListRowView(title: peripheralService.serviceUuids, detail: "Service")
-                }
+        List(self.peripheralVM.peripheralServices) {
+            peripheralService in
+            NavigationLink(destination: ServiceControlView(peripheralVM: self.peripheralVM, service: peripheralService.service)) {
+                ListRowView(title: peripheralService.serviceUuids, detail: "Service")
             }
-            .navigationBarTitle("Service" ,displayMode: .inline)
-            .onAppear() {
-                var result = true
-                if result {
-                    _ = self.peripheralVM.stopScan()
-                }
-                if result {
-                    result = self.peripheralVM.connectPeripheral(peripheral: self.peripheral)
-                }
-            }
+        }
+        .navigationBarTitle("Service" ,displayMode: .inline)
+        .onAppear() {
+            _ = self.peripheralVM.stopScan()
+            _ = self.peripheralVM.connectPeripheral(peripheral: self.peripheral)
         }
     }
 }

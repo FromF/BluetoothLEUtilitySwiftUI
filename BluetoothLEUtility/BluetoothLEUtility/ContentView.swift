@@ -25,9 +25,17 @@ struct ContentView: View {
                         _ = self.peripheralVM.startScan()
                     }) {
                         Text("Search")
+                        .frame(width: 200, height: 40, alignment: .center)
+                        .background(Color.red)
+                        .cornerRadius(6)
+                        .foregroundColor(.white)
                     }
                 } else {
                     Text("Initialize")
+                    .frame(width: 200, height: 40, alignment: .center)
+                    .background(Color.gray)
+                    .cornerRadius(6)
+                    .foregroundColor(.white)
                 }
             }
             .navigationBarTitle("Peripheral" ,displayMode: .inline)

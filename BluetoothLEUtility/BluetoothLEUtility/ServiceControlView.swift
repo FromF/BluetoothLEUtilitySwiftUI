@@ -14,48 +14,55 @@ struct ServiceControlView: View {
     var service: CBService
     
     var body: some View {
-        NavigationView {
-            VStack {
-                List(self.peripheralVM.characteristics) { characteristic in
-                    Button(action: {
-                        self.peripheralVM.selectedCharacteristic = characteristic.characteristic
-                    }) {
-                        ListRowView(title: characteristic.characteristicUuids, detail: "Characteristics")
-                    }
+        VStack {
+            List(self.peripheralVM.characteristics) { characteristic in
+                Button(action: {
+                    self.peripheralVM.selectedCharacteristic = characteristic.characteristic
+                }) {
+                    ListRowView(title: characteristic.characteristicUuids, detail: "Characteristics")
                 }
-                Spacer()
-                TextField("Placeholder", text: $peripheralVM.characteristicString)
-                    .padding(.horizontal)
-                Spacer()
-                HStack {
-                    Button(action: {
-                        self.peripheralVM.characteristicsWriteValue()
-                    }) {
-                        Text("Write")
-                        .frame(width: 100, height: 40, alignment: .center)
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                    }
-                    Button(action: {
-                        self.peripheralVM.characteristicsReadValue()
-                    }) {
-                        Text("Read")
-                        .frame(width: 100, height: 40, alignment: .center)
-                        .background(Color.red)
-                        .foregroundColor(.white)
-                    }
-                }
-//                Spacer()
-//                Button(action: {
-//                    
-//                }) {
-//                    Text("Invoke App")
-//                    .frame(width: 200, height: 40, alignment: .center)
-//                    .background(Color.black)
-//                        .foregroundColor(.white)
-//                }
-                Spacer()
             }
+            
+            Spacer()
+            
+            TextField("Placeholder", text: $peripheralVM.characteristicString)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .padding(.horizontal)
+            
+            Spacer()
+            
+            HStack {
+                Button(action: {
+                    self.peripheralVM.characteristicsWriteValue()
+                }) {
+                    Text("Write")
+                    .frame(width: 100, height: 40, alignment: .center)
+                    .background(Color.green)
+                    .cornerRadius(6)
+                    .foregroundColor(.white)
+                }
+                
+                Button(action: {
+                    self.peripheralVM.characteristicsReadValue()
+                }) {
+                    Text("Read")
+                    .frame(width: 100, height: 40, alignment: .center)
+                    .background(Color.red)
+                    .cornerRadius(6)
+                    .foregroundColor(.white)
+                }
+            }
+            Spacer()
+//            Button(action: {
+//                
+//            }) {
+//                Text("Invoke App")
+//                .frame(width: 200, height: 40, alignment: .center)
+//                .background(Color.gray)
+//                .cornerRadius(6)
+//                .foregroundColor(.white)
+//            }
+//            Spacer()
         }
         .navigationBarTitle("Characteristics" ,displayMode: .inline)
         .onAppear() {
