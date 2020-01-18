@@ -31,12 +31,17 @@ struct Characteristic : Identifiable {
 }
 
 class PeripheralVM: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, ObservableObject {
-    
+    /// ペリフェラルスキャン結果
     @Published var peripheralItems: [PeripheralItem] = []
+    /// デバイス状態
     @Published var state: CBManagerState = .unknown
+    /// サービス検索結果
     @Published var peripheralServices: [PeripheralService] = []
+    /// キャラクタリスティック検索結果
     @Published var characteristics: [Characteristic] = []
-    var selectedCharacteristic: CBCharacteristic?
+    /// Read/Writeをする対象キャラクタリスティック
+    @Published var selectedCharacteristic: CBCharacteristic?
+    /// キャラクタリスティックへのRead結果/WriteするString
     @Published var characteristicString: String = ""
     
     private var centralManager: CBCentralManager!
@@ -49,6 +54,7 @@ class PeripheralVM: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Ob
         centralManager = CBCentralManager(delegate: self, queue: queue, options: nil)
     }
     
+    // MARK: - ペリフェラルスキャン開始・終了
     func startScan() -> Bool {
         let result = state == .poweredOn ? true : false
         
@@ -81,6 +87,7 @@ class PeripheralVM: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Ob
         return result
     }
     
+    // MARK: - ペリフェラルスキャン接続・切断
     func connectPeripheral(peripheral: CBPeripheral) -> Bool {
         let result = state == .poweredOn ? true : false
         
@@ -106,6 +113,7 @@ class PeripheralVM: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Ob
         return result
     }
     
+    // MARK: - サービス検索
     /// Serviceの検索
     private func searchService() {
         guard let _connectedPeripheral = connectedPeripheral else {
@@ -117,6 +125,7 @@ class PeripheralVM: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Ob
         _connectedPeripheral.discoverServices(nil)
     }
     
+    // MARK: - キャラクタリスティック検索
     /// Charactaristicsの検索
     func searchCharacteristics(service: CBService){
         guard let _connectedPeripheral = connectedPeripheral else {
@@ -131,6 +140,7 @@ class PeripheralVM: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Ob
         }
     }
     
+    // MARK: - キャラクタリスティックのRead/Write
     func characteristicsReadValue() {
         guard let _connectedPeripheral = connectedPeripheral else {
             errorLog("Unwrap Error")
@@ -162,7 +172,7 @@ class PeripheralVM: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Ob
         _connectedPeripheral.writeValue(data, for: _selectedCharacteristic, type: .withResponse)
     }
 
-    // MARK: - CBCentralManagerDelegate
+    // MARK: - CBCentralManagerDelegate - デバイス起動時のdelegate
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         DispatchQueue.main.async {
             self.state = central.state
@@ -186,6 +196,7 @@ class PeripheralVM: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Ob
         }
     }
     
+    // MARK: - CBCentralManagerDelegate - ペリフェラルスキャン時のdelegate
     // BLEデバイスが検出された際に呼び出される.
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         debugLog("\(peripheral.name ?? "no name") \(peripheral.identifier.uuidString) \(RSSI)")
@@ -202,6 +213,7 @@ class PeripheralVM: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Ob
         }
     }
     
+    // MARK: - CBCentralManagerDelegate - ペリフェラル接続/切断時のdelegate
     // Peripheralに接続
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         debugLog("Connect")
@@ -237,7 +249,7 @@ class PeripheralVM: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Ob
         }
     }
     
-    // MARK: - CBPeripheralDelegate
+    // MARK: - CBPeripheralDelegate - サービス検索時のdelegate
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
         debugLog("didDiscoverServices")
         
@@ -251,6 +263,7 @@ class PeripheralVM: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Ob
         }
     }
     
+    // MARK: - CBPeripheralDelegate - キャラクタリスティック検索時のdelegate
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         if let e = error {
             errorLog("Error: \(e.localizedDescription)")
@@ -264,6 +277,7 @@ class PeripheralVM: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate, Ob
         }
     }
     
+    // MARK: - CBPeripheralDelegate - キャラクタリスティックRead/Write時のdelegate
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         if let e = error {
             errorLog("Error: \(e.localizedDescription)")
