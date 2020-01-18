@@ -19,7 +19,7 @@ struct ServiceControlView: View {
                 Button(action: {
                     self.peripheralVM.selectedCharacteristic = characteristic.characteristic
                 }) {
-                    ListRowView(title: characteristic.characteristicUuids, detail: "Characteristics")
+                    ListRowView(title: characteristic.characteristicUuids, detail: "Characteristics", isSelect: (self.peripheralVM.selectedCharacteristic == characteristic.characteristic))
                 }
             }
             
